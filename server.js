@@ -55,3 +55,9 @@ app.delete('/api/notes/:id', (req, res) => {
             newNotes.push(notes[i]);
         }
     }
+    fs.writeFile("./db/db.json", JSON.stringify(newDb), err => {
+        err ? console.error(err) : console.log('Hooray!')
+    });
+    notes = newNotes;
+    res.send(newNotes)
+});
