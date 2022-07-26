@@ -52,11 +52,11 @@ app.get("/notes", (req, res) => {
 app.get("/api/notes", (req, res) => {
     res.json(notes)
 });
-
 ```
 
 <br/>
 Lines of code that adds functionality to save notes.
+
 ```ruby
 app.post("/api/notes", (req, res) => {
     const { title, text} = req.body;
@@ -64,15 +64,17 @@ app.post("/api/notes", (req, res) => {
         title: title,
         text: text,
         id: id(),
-    };    
+    };
     notes.push(newNote);
     fs.writeFile("./db/db.json", JSON.stringify(noteData), (err) =>
     err ? console.error(err) : console.log("Hooray!"));
     res.send(notes);
 });
 ```
+
 <br/>
-Lines of code that allow for deletion of saved notes. 
+Lines of code that allow for deletion of saved notes.
+
 ```ruby
 app.delete('/api/notes/:id', (req, res) => {
     const table = notes.map((data) => {return data.id})
@@ -85,7 +87,6 @@ app.delete('/api/notes/:id', (req, res) => {
     res.json({});
 
 });
-
 ```
 
 ## User Information
@@ -106,4 +107,7 @@ UCB - Coding Bootcamp
 ---
 
 © 2022 Michael Wence. All Rights Reserved.
+
+```
+
 ```
