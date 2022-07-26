@@ -12,3 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+//landing page 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname, "./public/index.html");
+});
+
