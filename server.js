@@ -52,8 +52,8 @@ app.delete('/api/notes/:id', (req, res) => {
     fs.writeFile("./db/db.json", JSON.stringify(newDb), err => {
         err ? console.error(err) : console.log('Hooray!') 
     });
+    res.json({});
 });
-
 
 // server listening at this port 
 app.listen(PORT, () => {
