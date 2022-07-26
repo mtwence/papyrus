@@ -37,7 +37,7 @@ app.post("/api/notes", (req, res) => {
         id: id(),
     };    
     notes.push(newNote);
-    fs.writeFile("./db/db.json", JSON.stringify(noteData), (err) =>
+    fs.writeFile("./db/db.json", JSON.stringify(notes), (err) =>
     err ? console.error(err) : console.log("Hooray!"));
     res.send(notes);
 });
@@ -49,7 +49,7 @@ app.delete('/api/notes/:id', (req, res) => {
     .indexOf(req.params.id);
     notes.splice(table, 1);
 
-    fs.writeFile("./db/db.json", JSON.stringify(newDb), err => {
+    fs.writeFile("./db/db.json", JSON.stringify(notes), err => {
         err ? console.error(err) : console.log('Hooray!') 
     });
     res.json({});
