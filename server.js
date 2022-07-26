@@ -4,17 +4,17 @@ const app = express ();
 const fs = require('fs');
 const path = require('path');
 const notes = require('./db/db.json');
-const id = require ('helper/uuid.js')
+const id = require ('./helpers/uuid')
 const PORT = process.env.PORT || 3001;
 
-// middleware
-app.use(express.json());
+// setup for express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static('public'));
 
 //landing html 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname, "./public/index.html");
+    res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 // notes html 
@@ -41,3 +41,7 @@ app.post("/api/notes", (req, res) => {
     err ? console.error(err) : console.log("Hooray!"));
     res.send(notes);
 });
+
+app.listen(PORT, () => {
+    console.log(`Example app listening at http://localhost:${PORT}`);
+  });
