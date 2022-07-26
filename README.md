@@ -12,35 +12,79 @@
 
 ## Description
 
+A simply and easy to use web-based note taking app that allows you to create, save, and even delete notes.
+
 ## Technologies Used
 
 - HTML
 - CSS
 - Bootstrap
 - Javascript
-- jQuery
+- JSON
+- Node.js
+- Express.js
+- Heroku
 
 ## Deployed Link
 
-[alt text]()
+[Papyrus](https://papyrus-mtw.herokuapp.com/)
 
 ## Usage
 
-### Website Demo
-
-![alt text]()
+![Demo of Papyrus](./public/assets/images/papyrus%20demo.gif)
 
 ### Code Snippets
 
+Routing for the homepage, note taking page, and saved notes data.
+
 ```ruby
+//landing html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/index.html"));
+});
+
+// notes html
+app.get("/notes", (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/notes.html"))
+});
+
+// notes json object
+app.get("/api/notes", (req, res) => {
+    res.json(notes)
+});
 
 ```
 
+<br/>
+Lines of code that adds functionality to save notes.
 ```ruby
-
+app.post("/api/notes", (req, res) => {
+    const { title, text} = req.body;
+    const newNote = {
+        title: title,
+        text: text,
+        id: id(),
+    };    
+    notes.push(newNote);
+    fs.writeFile("./db/db.json", JSON.stringify(noteData), (err) =>
+    err ? console.error(err) : console.log("Hooray!"));
+    res.send(notes);
+});
 ```
-
+<br/>
+Lines of code that allow for deletion of saved notes. 
 ```ruby
+app.delete('/api/notes/:id', (req, res) => {
+    const table = notes.map((data) => {return data.id})
+    .indexOf(req.params.id);
+    notes.splice(table, 1);
+
+    fs.writeFile("./db/db.json", JSON.stringify(newDb), err => {
+        err ? console.error(err) : console.log('Hooray!')
+    });
+    res.json({});
+
+});
 
 ```
 
@@ -62,3 +106,4 @@ UCB - Coding Bootcamp
 ---
 
 © 2022 Michael Wence. All Rights Reserved.
+```
