@@ -42,22 +42,20 @@ app.post("/api/notes", (req, res) => {
     res.send(notes);
 });
 
+
+//   delete notes function 
+app.delete('/api/notes/:id', (req, res) => {
+    const table = notes.map((data) => {return data.id})
+    .indexOf(req.params.id);
+    notes.splice(table, 1);
+
+    fs.writeFile("./db/db.json", JSON.stringify(newDb), err => {
+        err ? console.error(err) : console.log('Hooray!') 
+    });
+});
+
+
 // server listening at this port 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`);
   });
-
-//   delete notes function 
-app.delete('/api/notes/:id', (req, res) => {
-    let newNotes = []
-    for (let i = 0; i < notes.length; i++) {
-        if (db[i].id != req.params.id) {
-            newNotes.push(notes[i]);
-        }
-    }
-    fs.writeFile("./db/db.json", JSON.stringify(newDb), err => {
-        err ? console.error(err) : console.log('Hooray!')
-    });
-    notes = newNotes;
-    res.send(newNotes)
-});
