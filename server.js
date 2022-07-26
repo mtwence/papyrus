@@ -42,6 +42,16 @@ app.post("/api/notes", (req, res) => {
     res.send(notes);
 });
 
+// server listening at this port 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`);
   });
+
+//   delete notes function 
+app.delete('/api/notes/:id', (req, res) => {
+    let newNotes = []
+    for (let i = 0; i < notes.length; i++) {
+        if (db[i].id != req.params.id) {
+            newNotes.push(notes[i]);
+        }
+    }
