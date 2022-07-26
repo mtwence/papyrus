@@ -7,7 +7,7 @@ const notes = require('./db/db.json');
 const id = require ('./helpers/uuid')
 const PORT = process.env.PORT || 3001;
 
-// setup for express app to handle data parsing
+// middleware setup for express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
@@ -43,7 +43,7 @@ app.post("/api/notes", (req, res) => {
 });
 
 
-//   delete notes function 
+//   delete notes function (tutor help)
 app.delete('/api/notes/:id', (req, res) => {
     const table = notes.map((data) => {return data.id})
     .indexOf(req.params.id);
