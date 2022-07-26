@@ -37,5 +37,7 @@ app.post("/api/notes", (req, res) => {
         id: id(),
     };    
     notes.push(newNote);
-    
-}
+    fs.writeFile("./db/db.json", JSON.stringify(noteData), (err) =>
+    err ? console.error(err) : console.log("Hooray!"));
+    res.send(notes);
+});
