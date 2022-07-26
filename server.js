@@ -4,7 +4,7 @@ const app = express ();
 const fs = require('fs');
 const path = require('path');
 const notes = require('./db/db.json');
-const randomId = require ('helper/uuid.js')
+const id = require ('helper/uuid.js')
 const PORT = process.env.PORT || 3001;
 
 // middleware
@@ -26,3 +26,16 @@ app.get("/notes", (req, res) => {
 app.get("/api/notes", (req, res) => {
     res.json(notes)
 });
+
+// post newly created note to server 
+
+app.post("/api/notes", (req, res) => {
+    const { title, text} = req.body;
+    const newNote = {
+        title: title,
+        text: text,
+        id: id(),
+    };    
+    notes.push(newNote);
+    
+}
